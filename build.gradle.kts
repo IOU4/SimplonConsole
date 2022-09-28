@@ -21,8 +21,7 @@ dependencies {
     testImplementation("junit:junit:4.13.2")
 
     // This dependency is used by the application.
-    implementation("com.google.guava:guava:31.0.1-jre")
-}
+    implementation("org.apache.commons:commons-math:2.2")}
 
 application {
     // Define the main class for the application.
