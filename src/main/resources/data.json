@@ -3,20 +3,20 @@
     {"id": 1, "name": "sihame ouled hnini", "email":"siham@youcode.ma"},
     {"id": 2, "name": "abdelaziz", "email":"abdelaziz@youcode.ma"}
   ],
-  "instrucrots": [
-    {"id": 1, "name": "fatimezzahra sedraoui", "email": "fezzahra@formateur.youcode.ma"}
+  "instructors": [
+    {"id": 1, "name": "fatimezzahra sedraoui", "email": "fezzahra@formateur.youcode.ma"},
     {"id": 2, "name": "ilyass touailab", "email": "ilyass@formateur.youcode.ma"}
   ],
   "students": [
-    {"id": 1, "promo": 1, "instructor": 1, "name": "emad", "email": "emad@student.youcode.ma" }
+    {"id": 1, "promo": 1, "instructor": 1, "name": "emad", "email": "emad@student.youcode.ma" },
     {"id": 2, "promo": 2, "instructor": 2, "name": "jouad", "email": "jouad@student.youcode.ma" }
   ],
   "briefs": [
-    {"id": 1, "promo": 1, "startDate": "2022-09-24", "endDate": "2022-09-31", "description": "description for brief 1.."}
+    {"id": 1, "promo": 1, "startDate": "2022-09-24", "endDate": "2022-09-31", "description": "description for brief 1.."},
     {"id": 2, "promo": 2, "startDate": "2022-10-02", "endDate": "2022-10-16", "description": "description for brief 2.."}
   ],
   "promos": [
-    {"id": 1, "year": 2021, "instructor": 1}
+    {"id": 1, "year": 2021, "instructor": 1},
     {"id": 2, "year": 2022, "instructor": 2}
   ]
 }

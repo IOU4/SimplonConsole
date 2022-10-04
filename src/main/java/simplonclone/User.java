@@ -5,6 +5,11 @@ public abstract class User {
   private String email;
   private int id;
 
+  public User(String name, String email) {
+    this.email = email;
+    this.name = name;
+  }
+
   public String getName() {
     return name;
   }
@@ -28,5 +33,4 @@ public abstract class User {
   public void setId(int id) {
     this.id = id;
   }
-
 }
