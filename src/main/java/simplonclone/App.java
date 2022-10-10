@@ -1,26 +1,32 @@
 package simplonclone;
 
-import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
+import java.util.Scanner;
+
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
+import simplonclone.Database.Database;
+
 public class App {
-  public static void getGreeting() {
-    System.out.println("Hello To simplon clone!");
+
+  private Scanner scanner;
+
+  public App() {
+    this.scanner = new Scanner(System.in);
+    new Database("postgres", "secret", "simplon");
   }
 
-  private static String readEmail() throws IOException {
-    System.out.println("email: ");
-    var input = new BufferedReader(new InputStreamReader(System.in));
-    String email = input.readLine();
+  private String readEmail() throws IOException {
+    System.out.print("email: ");
+    String email = scanner.nextLine();
     System.out.println("loggin you in... ");
+    scanner.close();
     return email;
   }
 
-  private static User getIdFromEmail(String email) {
+  private User getIdFromEmail(String email) {
     try (var reader = new FileReader("src/main/resources/data.json")) {
       var data = new JSONObject(new JSONTokener(reader));
 
@@ -52,8 +58,8 @@ public class App {
     return null;
   }
 
-  public static void main(String[] args) throws IOException {
-    getGreeting();
+  public void main(String[] args) throws IOException {
+    System.out.println("welcome to simplon.ma 🎉");
     User user = getIdFromEmail(readEmail());
 
     // System.out.printf("welcome aboard %s\n", email);
