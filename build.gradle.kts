@@ -5,9 +5,7 @@ repositories {
 }
 
 dependencies {
- 
   implementation("org.postgresql:postgresql:42.5.0")
-  implementation("org.json:json:20220924")
 }
 
 tasks {
