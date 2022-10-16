@@ -1,6 +1,5 @@
 package simplonclone;
 
-import java.io.IOException;
 import java.util.Scanner;
 
 import simplonclone.Database.Database;
@@ -14,35 +13,36 @@ public class App {
     this.db = new Database("postgres", "secret", "simplon");
   }
 
-  private String readEmail() throws IOException {
+  private String readEmail() {
     System.out.print("email: ");
     String email = scanner.nextLine();
-    System.out.println("loggin you in... ");
     return email;
   }
 
-  private User getIdFromEmail(String email) {
-    try {
+  public void run() {
+    System.out.println("welcome to simplon.ma 🎉");
+    var email = readEmail();
+    System.out.println("loggin you in... ");
+    var user = new AdminstratorHandler(this.db).findEmail(email);
+    if (user != null)
+      handleAdmin(user);
 
-    } catch (Exception ex) {
-      ex.printStackTrace();
-    }
-
-    System.out.println("email not found!");
-    return null;
+    this.closeAll();
   }
 
-  public void run() {
-    // try {
-    System.out.println("welcome to simplon.ma 🎉");
-    var admins = Administrator.getAdministrators(this.db);
-    // User user = getIdFromEmail(readEmail());
-    //
-    // } catch (IOException e) {
-    // e.printStackTrace();
-    // }
+  private void handleAdmin(Administrator admin) {
+    System.out.println("hello : " + admin.getName());
+  }
 
-    // System.out.printf("welcome aboard %s\n", email);
+  private void handleInstructor(Instructor instructor) {
+    System.out.println("hello : " + instructor.getName());
+  }
+
+  private void handleStudent(Student student) {
+    System.out.println("hello : " + student.getName());
+  }
+
+  private void closeAll() {
     this.db.close_db();
     this.scanner.close();
   }

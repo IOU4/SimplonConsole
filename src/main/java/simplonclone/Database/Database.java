@@ -13,7 +13,6 @@ public class Database {
   public Database(String username, String passwd, String database) {
     try {
       this.con = DriverManager.getConnection("jdbc:postgresql://localhost:5432/" + database, username, passwd);
-      System.out.println("successfull connectionn whooo!");
     } catch (SQLException e) {
       e.printStackTrace();
       close_db();
@@ -42,15 +41,13 @@ public class Database {
   public ArrayList<Administrator> getAdmins() {
     var admins = new ArrayList<Administrator>();
     try {
-      var stmnt = this.con.createStatement();
-      var rs = stmnt.executeQuery("select * from administrators;");
-      System.out.println(rs.getFetchSize());
+      var rs = con.createStatement().executeQuery("select name, email, id from administrators;");
       while (rs.next()) {
-        rs.getString("name");
-        admins.add(new Administrator(rs.getString("name"), rs.getString("email")));
+        admins.add(new Administrator(rs.getString("name"), rs.getString("email"), rs.getInt("id")));
       }
     } catch (SQLException ex) {
-      System.out.println("couldn't get columns");
+      System.out.println("couldn't get admins");
+      ex.printStackTrace();
     }
     return admins;
   }

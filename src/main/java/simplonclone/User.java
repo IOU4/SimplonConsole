@@ -5,9 +5,10 @@ public abstract class User {
   private String email;
   private int id;
 
-  public User(String name, String email) {
+  public User(String name, String email, int id) {
     this.email = email;
     this.name = name;
+    this.id = id;
   }
 
   public String getName() {
@@ -30,7 +31,4 @@ public abstract class User {
     return id;
   }
 
-  public void setId(int id) {
-    this.id = id;
-  }
 }
