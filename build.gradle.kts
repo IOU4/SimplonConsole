@@ -1,7 +1,14 @@
-plugins { application }
+plugins { 
+  application, 
+  war
+}
 
 repositories {
   mavenCentral()
+}
+
+java {
+  sourceCompatibility = JavaVersion.VERSION_19
 }
 
 dependencies {
@@ -16,3 +23,4 @@ tasks {
 application {
   mainClass.set("simplonclone.Main")
 }
+

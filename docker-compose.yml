@@ -12,18 +12,16 @@ services:
       - 'db:/var/lib/postgresql/data'
     ports: 
       - 5432:5432
-  pgadmin: 
-    container_name: simplon_pgadmin
-    image: dpage/pgadmin4
-    environment: 
-      PGADMIN_DEFAULT_EMAIL: 'me@simplon.ma'
-      PGADMIN_DEFAULT_PASSWORD: 'secret'
+
+  server:
+    build:
+      dockerfile: ./tomcat.Dockerfile
     ports: 
-      - '8080:80'
+      - 80:8080
     volumes:
-      - 'pgadmin:/var/lib/pgadmin'
+      - ./build/libs:/usr/local/tomcat/webapps/
+
 
 volumes: 
   db: 
-  pgadmin: 
 

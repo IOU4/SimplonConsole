@@ -1,6 +1,4 @@
-package simplonclone;
-
-import simplonclone.Database.Database;
+package simplonclone.Controllers;
 
 public class Administrator extends User {
 

@@ -3,12 +3,9 @@ package simplonclone.Database;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.ArrayList;
-
-import simplonclone.Administrator;
 
 public class Database {
-  private Connection con;
+  public Connection con;
 
   public Database(String username, String passwd, String database) {
     try {
@@ -36,19 +33,5 @@ public class Database {
     } catch (SQLException ex) {
       ex.printStackTrace();
     }
-  }
-
-  public ArrayList<Administrator> getAdmins() {
-    var admins = new ArrayList<Administrator>();
-    try {
-      var rs = con.createStatement().executeQuery("select name, email, id from administrators;");
-      while (rs.next()) {
-        admins.add(new Administrator(rs.getString("name"), rs.getString("email"), rs.getInt("id")));
-      }
-    } catch (SQLException ex) {
-      System.out.println("couldn't get admins");
-      ex.printStackTrace();
-    }
-    return admins;
   }
 }

@@ -1,4 +1,4 @@
-package simplonclone;
+package simplonclone.Controllers;
 
 public abstract class User {
   private String name;
@@ -29,6 +29,10 @@ public abstract class User {
 
   public int getId() {
     return id;
+  }
+
+  public static User find(String email) {
+    return new Administrator("test", "test", 1);
   }
 
 }
