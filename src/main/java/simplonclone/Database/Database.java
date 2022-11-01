@@ -13,6 +13,7 @@ public class Database {
     } catch (SQLException e) {
       e.printStackTrace();
       close_db();
+      System.exit(1);
     }
   }
 
