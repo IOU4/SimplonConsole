@@ -14,7 +14,7 @@ public class PromoModel {
       PreparedStatement stmnt = con.prepareStatement("select * from promos");
       var rs = stmnt.executeQuery();
       while (rs.next()) {
-        System.out.println(rs.getString("name"));
+        System.out.println(rs.getInt("id") + "- " + rs.getString("name"));
       }
     } catch (SQLException e) {
       e.printStackTrace();

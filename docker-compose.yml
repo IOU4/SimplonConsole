@@ -13,13 +13,13 @@ services:
     ports: 
       - 5432:5432
 
-  server:
-    build:
-      dockerfile: ./tomcat.Dockerfile
-    ports: 
-      - 80:8080
-    volumes:
-      - ./build/libs:/usr/local/tomcat/webapps/
+  # server:
+  #   build:
+  #     dockerfile: ./tomcat.Dockerfile
+  #   ports: 
+  #     - 80:8080
+  #   volumes:
+  #     - ./build/libs:/usr/local/tomcat/webapps/
 
 
 volumes: 

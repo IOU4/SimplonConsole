@@ -26,7 +26,8 @@ public class App {
   public void run() {
     System.out.println("welcome to simplon.ma 🎉");
     while (true) {
-      var email = readEmail();
+      var email = "abdelaziz@youcode.ma";
+      // var email = readEmail();
       System.out.println("loggin you in... ");
       var user = UserModel.find(email);
       if (user instanceof Administrator) {
@@ -54,5 +55,4 @@ public class App {
     if (scanner != null)
       scanner.close();
   }
-
 }
