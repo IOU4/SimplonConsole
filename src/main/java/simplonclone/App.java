@@ -3,7 +3,7 @@ package simplonclone;
 import java.sql.Connection;
 import java.util.Scanner;
 
-import simplonclone.Controllers.Administrator;
+import simplonclone.Controllers.Admin;
 import simplonclone.Controllers.Instructor;
 import simplonclone.Controllers.Student;
 import simplonclone.Database.Database;
@@ -26,12 +26,12 @@ public class App {
   public void run() {
     System.out.println("welcome to simplon.ma 🎉");
     while (true) {
-      var email = "abdelaziz@youcode.ma";
+      var email = readEmail();
       // var email = readEmail();
       System.out.println("loggin you in... ");
       var user = UserModel.find(email);
-      if (user instanceof Administrator) {
-        new Administrator((Administrator) user).handler();
+      if (user instanceof Admin) {
+        new Admin((Admin) user).handler();
         break;
       } else if (user instanceof Student) {
         new Student((Student) user).handler();

@@ -12,14 +12,14 @@ create table if not exists instructors (
 
 create table if not exists promos  (
 	id serial primary key,
-	instructor_id int not null
+	instructor_id int
 );
 
 create table if not exists students (
 	id serial primary key,
 	name text not null,
 	email text not null,
-	promo_id int not null
+	promo_id int
 );
 
 create table if not exists briefs (

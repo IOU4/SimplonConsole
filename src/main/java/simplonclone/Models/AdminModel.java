@@ -5,19 +5,19 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import simplonclone.Controllers.Administrator;
+import simplonclone.Controllers.Admin;
 import simplonclone.App;
 
 public class AdminModel {
   private static Connection con = App.getConnection();
 
-  public static Administrator find(String email) {
+  public static Admin find(String email) {
     try {
       PreparedStatement stmnt = con.prepareStatement("select * from administrators where email = ?");
       stmnt.setString(1, email);
       var rs = stmnt.executeQuery();
       if (rs.next())
-        return new Administrator(rs.getString("name"), rs.getString("email"), rs.getInt("id"));
+        return new Admin(rs.getString("name"), rs.getString("email"), rs.getInt("id"));
       return null;
     } catch (SQLException e) {
       e.printStackTrace();
@@ -25,41 +25,11 @@ public class AdminModel {
     }
   }
 
-  // add new instructor
-  public static boolean addInstructor(String name, String email) {
-    try {
-      PreparedStatement stmnt = con.prepareStatement("insert into instructors (name, email) values (?, ?)");
-      stmnt.setString(1, name);
-      stmnt.setString(2, email);
-      stmnt.executeUpdate();
-      return true;
-    } catch (SQLException e) {
-      System.out.println(e.getMessage());
-      return false;
-    }
-  }
-
   // add new promo
-  public static boolean addPromo(String name, int instructoId) {
+  public static boolean addPromo(String name) {
     try {
-      PreparedStatement stmnt = con.prepareStatement("insert into promos (name, instructor_id) values (?, ?)");
+      PreparedStatement stmnt = con.prepareStatement("insert into promos (name) values (?)");
       stmnt.setString(1, name);
-      stmnt.setInt(2, instructoId);
-      stmnt.executeUpdate();
-      return true;
-    } catch (SQLException e) {
-      System.out.println(e.getMessage());
-      return false;
-    }
-  }
-
-  // add new student
-  public static boolean addStudent(String name, String email, int promoId) {
-    try {
-      PreparedStatement stmnt = con.prepareStatement("insert into students (name, email, promo_id) values (?, ?, ?)");
-      stmnt.setString(1, name);
-      stmnt.setString(2, email);
-      stmnt.setInt(3, promoId);
       stmnt.executeUpdate();
       return true;
     } catch (SQLException e) {
@@ -84,35 +54,17 @@ public class AdminModel {
     return null;
   }
 
-  // get all instructors
-  public static ArrayList<String> getAllInstructors() {
-    ArrayList<String> instructors = new ArrayList<>();
+  public static boolean assignInstructorToPromo(int promoId, int instructorId) {
     try {
-      PreparedStatement stmnt = con.prepareStatement("select * from instructors");
-      var rs = stmnt.executeQuery();
-      while (rs.next())
-        instructors.add(rs.getInt("id") + "- " + rs.getString("name"));
-      return instructors;
+      PreparedStatement stmnt = con.prepareStatement("update promos set instructor_id = ? where id = ?");
+      stmnt.setInt(1, instructorId);
+      stmnt.setInt(2, promoId);
+      stmnt.executeUpdate();
+      return true;
     } catch (SQLException e) {
       System.out.println(e.getMessage());
+      return false;
     }
-    return null;
-  }
-
-  // get all students
-  public static ArrayList<String> getAllStudents() {
-    ArrayList<String> students = new ArrayList<>();
-    try {
-      PreparedStatement stmnt = con.prepareStatement("select * from students");
-      var rs = stmnt.executeQuery();
-      while (rs.next()) {
-        students.add(rs.getInt("id") + "- " + rs.getString("name"));
-      }
-      return students;
-    } catch (SQLException e) {
-      e.printStackTrace();
-    }
-    return null;
   }
 
 }

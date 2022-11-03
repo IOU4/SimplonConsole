@@ -4,8 +4,10 @@ import java.util.LinkedHashMap;
 
 import simplonclone.App;
 import simplonclone.Models.AdminModel;
+import simplonclone.Models.InstructorModel;
+import simplonclone.Models.StudentModel;
 
-public class Administrator extends User {
+public class Admin extends User {
   private LinkedHashMap<String, MenuHandler> menu;
 
   @FunctionalInterface
@@ -13,21 +15,23 @@ public class Administrator extends User {
     public void run();
   }
 
-  public Administrator(String name, String email, int id) {
+  public Admin(String name, String email, int id) {
     super(name, email, id);
-    fillMenu();
   }
 
-  public Administrator(Administrator admin) {
+  public Admin() {
+    super();
+  }
+
+  public Admin(Admin admin) {
     super(admin.getName(), admin.getEmail(), admin.getId());
-    fillMenu();
   }
 
   private void fillMenu() {
     menu = new LinkedHashMap<>();
     menu.put("add instructor", this::addInstructor);
     menu.put("add promo", this::addPromo);
-    menu.put("add student", this::addStudent);
+    menu.put("assign instructor to promo", this::assignInstructorToPromo);
     menu.put("list instructors", this::listInstructors);
     menu.put("list promos", this::listPromos);
     menu.put("list students", this::liststudents);
@@ -43,6 +47,7 @@ public class Administrator extends User {
   }
 
   public void handler() {
+    fillMenu();
     System.out.println("hello : " + this.getName());
     while (true) {
       printMenu();
@@ -70,7 +75,7 @@ public class Administrator extends User {
     String name = App.scanner.nextLine();
     System.out.printf("Instructor email: ");
     String email = App.scanner.nextLine();
-    if (AdminModel.addInstructor(name, email))
+    if (InstructorModel.addInstructor(new Instructor(name, email, 0)))
       System.out.println("added instructor '" + name + "' successfully!");
     else
       System.out.println("failed to add instructor '" + name + "'!");
@@ -79,42 +84,43 @@ public class Administrator extends User {
   private void addPromo() {
     System.out.printf("promo name :  ");
     String name = App.scanner.nextLine();
-    listInstructors();
-    System.out.printf("please choose an instructor_id :  ");
-    int instrutorId = App.scanner.nextInt();
-    App.scanner.nextLine();
-    if (AdminModel.addPromo(name, instrutorId))
+    if (AdminModel.addPromo(name))
       System.out.println("added promo '" + name + "' successfully!");
     else
       System.out.println("failed to add promo '" + name + "'!");
   }
 
-  private void addStudent() {
-    System.out.printf("Student name: ");
-    String name = App.scanner.nextLine();
-    System.out.printf("Student email: ");
-    String email = App.scanner.nextLine();
-    this.listPromos();
-    System.out.printf("please choose a promoId: ");
-    int promo = App.scanner.nextInt();
-    if (AdminModel.addStudent(name, email, promo))
-      System.out.println("added student '" + name + "' successfully!");
-    else
-      System.out.println("failed to add student '" + name + "'!");
-  }
-
-  private void listInstructors() {
+  public void listInstructors() {
     System.out.println("Instructors:");
-    AdminModel.getAllInstructors().forEach(System.out::println);
+    InstructorModel.getAllInstructors().forEach(instructor -> {
+      System.out.println(instructor.getId() + "- " + instructor.getName());
+    });
   }
 
-  private void listPromos() {
+  public void listPromos() {
     System.out.println("Promos:");
     AdminModel.getAllPromos().forEach(System.out::println);
   }
 
-  private void liststudents() {
+  public void liststudents() {
     System.out.println("Students:");
-    AdminModel.getAllStudents().forEach(System.out::println);
+    StudentModel.getAllStudents().forEach(student -> {
+      System.out.println(student.getId() + "- " + student.getName());
+    });
+  }
+
+  private void assignInstructorToPromo() {
+    listInstructors();
+    System.out.printf("choose an instructor: ");
+    int instructorId = App.scanner.nextInt();
+    App.scanner.nextLine();
+    listPromos();
+    System.out.printf("choose a promo: ");
+    int promoId = App.scanner.nextInt();
+    App.scanner.nextLine();
+    if (AdminModel.assignInstructorToPromo(promoId, instructorId))
+      System.out.println("assigned instructor to promo successfully!");
+    else
+      System.out.println("failed to assign instructor to promo!");
   }
 }

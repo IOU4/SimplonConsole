@@ -11,6 +11,10 @@ public abstract class User {
     this.id = id;
   }
 
+  public User() {
+    this("", "", 0);
+  }
+
   public String getName() {
     return name;
   }
@@ -32,7 +36,6 @@ public abstract class User {
   }
 
   public static User find(String email) {
-    return new Administrator("test", "test", 1);
+    return new Admin("test", "test", 1);
   }
-
 }
