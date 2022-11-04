@@ -9,7 +9,8 @@ public class Database {
 
   public Database(String username, String passwd, String database) {
     try {
-      this.con = DriverManager.getConnection("jdbc:postgresql://localhost:5432/" + database, username, passwd);
+      var url = "jdbc:postgresql://" + System.getenv("DB_HOST") + ":5432/" + database;
+      this.con = DriverManager.getConnection(url, username, passwd);
     } catch (SQLException e) {
       e.printStackTrace();
       close_db();
@@ -19,7 +20,8 @@ public class Database {
 
   public Database(String username, String passwd) {
     try {
-      this.con = DriverManager.getConnection("jdbc:postgresql://localhost:5432/simplon", username, passwd);
+      var url = "jdbc:postgresql://db:5432/simplon";
+      this.con = DriverManager.getConnection(url, username, passwd);
     } catch (SQLException e) {
       System.err.println("couldn't connect to database.");
       e.printStackTrace();

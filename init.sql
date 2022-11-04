@@ -12,6 +12,7 @@ create table if not exists instructors (
 
 create table if not exists promos  (
 	id serial primary key,
+  name text not null,
 	instructor_id int
 );
 
@@ -27,5 +28,9 @@ create table if not exists briefs (
 	description text,
 	launch_date date not null,
 	deadline date not null,
-	promo_id int not null
+	promo_id int 
 );
+
+// default admin and instructor to access menus
+insert into administrators (name, email) values ('admin', 'admin@youcode.ma');
+insert into instructors (name, email) values ('instructor', 'instructor@youcode.ma');

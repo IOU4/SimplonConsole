@@ -9,3 +9,5 @@ build
 
 .idea
 .env
+.settings
+.classpath
